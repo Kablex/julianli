@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"},
+ *     normalizationContext={"groups"={"post_get"}},
+ *     denormalizationContext={"groups"={"post_create"}}
+ * )
+ *
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ *
  * @Vich\Uploadable
  */
 class Post
@@ -19,56 +29,78 @@ class Post
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"post_get"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     *
+     * @Groups({"post_get"})
      */
     private $title;
 
     /**
      * @ORM\Column(name="slug", type="string", length=255)
+     *
+     * @Groups({"post_get"})
      */
     private $slug;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="cover_image_url", type="string", length=255, nullable=true)
      */
     private $coverImageUrl;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @Vich\UploadableField(mapping="blogs", fileNameProperty="coverImageUrl")
      */
     private $coverImageFile;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="content", type="text")
      */
     private $content;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="page_views", type="integer", nullable=true)
      */
     private $pageViews;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(name="posts_tags")
      */
     private $tags;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="update_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\Column(name="is_published", type="boolean", nullable=true)
      *
      * @var bool
@@ -83,6 +115,8 @@ class Post
     private $isPublic;
 
     /**
+     * @Groups({"post_get"})
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Freelancer", inversedBy="posts")
      * @ORM\JoinColumn(nullable=true)
      */
