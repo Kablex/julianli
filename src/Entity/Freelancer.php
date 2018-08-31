@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="freelancer")
@@ -37,15 +36,11 @@ class Freelancer implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @Groups({"post_get"})
-     *
      * @ORM\Column(name="first_name", type="string", length=255)
      */
     private $firstName;
 
     /**
-     * @Groups({"post_get"})
-     *
      * @ORM\Column(name="last_name", type="string", length=255)
      */
     private $lastName;
