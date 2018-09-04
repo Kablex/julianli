@@ -52,7 +52,7 @@ class Post
         ?string $title = null,
         ?string $slug = null,
         ?string $content = null,
-         array  $tags
+        array  $tags
     ) {
         $this->id = $id;
         $this->title = $title;

@@ -4,12 +4,16 @@ declare(strict_types=1);
 namespace App\Api\DataProviders;
 
 use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Api\Resources\Post;
 use App\Api\Resources\Tag;
 use App\Repository\PostRepository;
 
-class PostCollectionDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
+class PostDataProvider implements
+    CollectionDataProviderInterface,
+    ItemDataProviderInterface,
+    RestrictedDataProviderInterface
 {
     private $postRepository;
 
@@ -43,6 +47,29 @@ class PostCollectionDataProvider implements CollectionDataProviderInterface, Res
                 $tags
             );
         }
+    }
+
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    {
+        $post = $this->postRepository->find($id);
+
+        if (null === $post) {
+            return null;
+        }
+
+        $tags = [];
+        /** @var \App\Entity\Tag $tag */
+        foreach ($post->getTags() as $tag) {
+            $tags[] = new Tag($tag->getId(), $tag->getName());
+        }
+
+        return new Post(
+            $post->getId(),
+            $post->getTitle(),
+            $post->getSlug(),
+            $post->getContent(),
+            $tags
+        );
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
