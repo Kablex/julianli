@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler;
 
-use App\Requests\Contact;
+use App\Api\Resources\Contact;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
@@ -23,9 +23,9 @@ class ContactHandler implements MessageHandlerInterface
 
     public function __invoke(Contact $contact)
     {
-        $content = \sprintf("Email from %s \r\nMessage: \r\n%s", $contact->getEmail(), $contact->getMessage());
+        $content = \sprintf("Email from %s \r\nMessage: \r\n%s", $contact->email, $contact->message);
 
-        $message = (new Swift_Message($contact->getSubject()))
+        $message = (new Swift_Message($contact->subject))
             ->setFrom($this->hostEmail)
             ->setTo($this->adminEmail)
             ->setBody($content, 'text/plain');

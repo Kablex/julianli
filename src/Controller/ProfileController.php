@@ -31,25 +31,25 @@ class ProfileController extends BaseController
             ]
         );
     }
-
-    /**
-     * @Route("/api/contact", name="contact")
-     */
-    public function postContact(Request $request, MessageBusInterface $bus): Response
-    {
-        $form = $this->createForm(ContactType::class, new Contact());
-        $this->processForm($request, $form);
-
-        if (!$form->isValid()) {
-            $this->throwApiProblemValidationException($form);
-        }
-
-        $contact = $form->getData();
-
-        $bus->dispatch($contact);
-
-        return $this->createApiResponse($contact, 200);
-    }
+//
+//    /**
+//     * @Route("/api/contact", name="contact")
+//     */
+//    public function postContact(Request $request, MessageBusInterface $bus): Response
+//    {
+//        $form = $this->createForm(ContactType::class, new Contact());
+//        $this->processForm($request, $form);
+//
+//        if (!$form->isValid()) {
+//            $this->throwApiProblemValidationException($form);
+//        }
+//
+//        $contact = $form->getData();
+//
+//        $bus->dispatch($contact);
+//
+//        return $this->createApiResponse($contact, 200);
+//    }
 
     private function processForm(Request $request, FormInterface $form): void
     {
