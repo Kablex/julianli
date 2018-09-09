@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Tests\MessageHandler;
 
+use App\Api\Resources\Contact;
 use App\MessageHandler\ContactHandler;
-use App\Requests\Contact;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
