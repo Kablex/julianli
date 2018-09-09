@@ -808,26 +808,22 @@
                 }),
                 error: function(data) {
                     $('.rsFormSubmit').removeAttr('disabled');
-                    var responseErrors = data['responseJSON']['errors'];
+                    var violations = JSON.parse(data.responseText).violations;
 
-                    var emailError;
-                    if (responseErrors['email'] !== undefined) {
-                        emailError = responseErrors['email'][0];
-                    }
-
-                    var subjectError;
-                    if (responseErrors['subject'] !== undefined) {
-                        subjectError = responseErrors['subject'][0];
-                    }
-
-                    var nameError;
-                    if (responseErrors['name'] !== undefined) {
-                        nameError = responseErrors['name'][0];
-                    }
-
-                    var messageError;
-                    if (responseErrors['message'] !== undefined) {
-                        messageError = responseErrors['message'][0];
+                    var emailError, subjectError, nameError, messageError;
+                    for (var i = 0; i < violations.length; i++) {
+                        if (violations[i]['propertyPath'] == 'email') {
+                            emailError = violations[i]['message'];
+                        }
+                        if (violations[i]['propertyPath'] == 'subject') {
+                            subjectError = violations[i]['message'];
+                        }
+                        if (violations[i]['propertyPath'] == 'name') {
+                            nameError = violations[i]['message'];
+                        }
+                        if (violations[i]['propertyPath'] == 'message') {
+                            messageError = violations[i]['message'];
+                        }
                     }
 
                     $('.subject-error').text(subjectError);
@@ -835,6 +831,7 @@
                     $('.email-error').text(emailError);
                     $('.message-error').text(messageError);
                 },
+                contentType: "application/ld+json",
                 dataType: 'json',
                 success: function(data) {
                     $('.rsFormSubmit').removeAttr('disabled');
