@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource
+ *
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  */
 class Tag
@@ -20,7 +23,7 @@ class Tag
     private $id;
 
     /**
-     * @Groups({"post_get"})
+     * @Groups({"read"})
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
@@ -59,10 +62,5 @@ class Tag
     public function setPosts(Collection $posts): void
     {
         $this->posts = $posts;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 }

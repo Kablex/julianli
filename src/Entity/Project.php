@@ -2,13 +2,10 @@
 
 namespace App\Entity;
 
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @Vich\Uploadable
  */
 class Project
 {
@@ -49,21 +46,11 @@ class Project
      */
     private $coverImageUrl;
 
-    /**
-     * @Vich\UploadableField(mapping="projects", fileNameProperty="coverImageUrl")
-     */
-    private $coverImageFile;
-
 
     /**
      * @ORM\Column(name="inner_image_url", type="string", length=255, nullable=true)
      */
     private $innerImageUrl;
-
-    /**
-     * @Vich\UploadableField(mapping="projects", fileNameProperty="innerImageUrl")
-     */
-    private $innerImageFile;
 
     /**
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
@@ -147,24 +134,6 @@ class Project
         return $this->coverImageUrl;
     }
 
-    public function getCoverImageFile(): ?File
-    {
-        return $this->coverImageFile;
-    }
-
-    public function setCoverImageFile(File $image = null)
-    {
-        $this->coverImageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
     public function setCoverImageUrl(?string $coverImageUrl): void
     {
         $this->coverImageUrl = $coverImageUrl;
@@ -178,30 +147,6 @@ class Project
     public function setInnerImageUrl(?string $innerImageUrl): void
     {
         $this->innerImageUrl = $innerImageUrl;
-    }
-
-    /**
-     * @return File
-     */
-    public function getInnerImageFile(): ?File
-    {
-        return $this->innerImageFile;
-    }
-
-    /**
-     * @param File $innerImageFile
-     */
-    public function setInnerImageFile(File $innerImageFile = null): void
-    {
-        $this->innerImageFile = $innerImageFile;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($innerImageFile) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
     }
 
     public function getLink(): ?string
@@ -238,10 +183,5 @@ class Project
     public function setFreelancer(Freelancer $freelancer): void
     {
         $this->freelancer = $freelancer;
-    }
-
-    public function __toString()
-    {
-        return $this->title;
     }
 }

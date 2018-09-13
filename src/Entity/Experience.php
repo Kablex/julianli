@@ -129,12 +129,4 @@ class Experience
     {
         $this->jobTitle = $jobTitle;
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->jobTitle.' at '.$this->company;
-    }
 }

@@ -66,9 +66,4 @@ class Skill
     {
         $this->freelancer = $freelancer;
     }
-
-    public function __toString()
-    {
-        return $this->name;
-    }
 }

@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ApiResource(normalizationContext={"groups"={"read"}})
  *
- * @Vich\Uploadable
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post
 {
@@ -24,41 +24,50 @@ class Post
     private $id;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="slug", type="string", length=255)*
      */
     private $slug;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="cover_image_url", type="string", length=255, nullable=true)
      */
     private $coverImageUrl;
 
     /**
-     * @Vich\UploadableField(mapping="blogs", fileNameProperty="coverImageUrl")
-     */
-    private $coverImageFile;
-
-    /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="content", type="text")
      */
     private $content;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\Column(name="page_views", type="integer", nullable=true)
      */
     private $pageViews;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(name="posts_tags")
      */
@@ -84,6 +93,8 @@ class Post
     private $isPublic;
 
     /**
+     * @Groups({"read"})
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Freelancer", inversedBy="posts")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -103,11 +114,6 @@ class Post
     public function getContent(): ?string
     {
         return $this->content;
-    }
-
-    public function getCoverImageFile(): ?File
-    {
-        return $this->coverImageFile;
     }
 
     public function getCoverImageUrl(): ?string
@@ -170,19 +176,6 @@ class Post
         $this->content = $content;
     }
 
-    public function setCoverImageFile(File $image = null): void
-    {
-        $this->coverImageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
     public function setCoverImageUrl(?string $coverImageUrl): void
     {
         $this->coverImageUrl = $coverImageUrl;
@@ -236,10 +229,5 @@ class Post
     public function setUpdatedAt(?\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    public function __toString(): ?string
-    {
-        return $this->title;
     }
 }

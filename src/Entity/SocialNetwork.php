@@ -81,9 +81,4 @@ class SocialNetwork
     {
         $this->freelancer = $freelancer;
     }
-
-    public function __toString()
-    {
-        return $this->link;
-    }
 }

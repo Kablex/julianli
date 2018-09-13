@@ -108,12 +108,4 @@ class Education
     {
         $this->university = $university;
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->degree.' at '.$this->university;
-    }
 }

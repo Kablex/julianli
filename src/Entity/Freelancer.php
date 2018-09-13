@@ -275,9 +275,4 @@ class Freelancer implements UserInterface, \Serializable
             $this->password
         ] = \unserialize($serialized, ['allowed_classes' => true]);
     }
-
-    public function __toString()
-    {
-        return $this->firstName.' '.$this->lastName;
-    }
 }
