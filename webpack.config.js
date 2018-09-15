@@ -14,9 +14,9 @@ Encore
     // the following line enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-// uncomment to define the assets of the project
-//.addEntry('js/app', './assets/js/app.js')
-//.addStyleEntry('css/app', './assets/css/app.scss')
+    .addEntry('js/app', './assets/js/app.js')
+    .addStyleEntry('css/app', ['./assets/css/app.css', './assets/css/simplemde.css'])
+    .enablePostCssLoader()
 
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()
