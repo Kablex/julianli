@@ -61,9 +61,4 @@
  * @import "utilities/skew-transforms";
  */
 
-/**
- * simplemde v1.11.2
- * Copyright Next Step Webs, Inc.
- * @link https://github.com/NextStepWebs/simplemde-markdown-editor
- * @license MIT
- */
+@import "../../node_modules/simplemde/dist/simplemde.min.css";

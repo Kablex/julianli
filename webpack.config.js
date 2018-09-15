@@ -15,7 +15,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     .addEntry('js/app', './assets/js/app.js')
-    .addStyleEntry('css/app', ['./assets/css/app.css', './assets/css/simplemde.css'])
+    .addStyleEntry('css/app', './assets/css/app.css')
     .enablePostCssLoader()
 
 // uncomment if you use TypeScript
