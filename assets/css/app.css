@@ -61,4 +61,20 @@
  * @import "utilities/skew-transforms";
  */
 
-@import "../../node_modules/simplemde/dist/simplemde.min.css";
+@import "~simplemde/dist/simplemde.min.css";
+
+.btn {
+     @apply .py-3 .px-6 .text-lg rounded;
+}
+
+.btn-blue {
+    @apply bg-blue text-white;
+}
+
+.btn-blue:hover {
+    @apply bg-blue-dark;
+}
+
+.appearance-none {
+    -webkit-appearance: none;
+}
