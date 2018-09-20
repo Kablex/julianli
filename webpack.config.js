@@ -12,17 +12,15 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
 
     // the following line enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    .enableVersioning()
 
     .addEntry('js/app', './assets/js/app.js')
-    .addStyleEntry('css/app', './assets/css/app.css')
+    .addStyleEntry('css/app', './assets/css/app.scss')
     .enablePostCssLoader()
+    .enableSassLoader()
 
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()
-
-// uncomment if you use Sass/SCSS files
-//.enableSassLoader()
 
 // uncomment for legacy applications that require $/jQuery as a global variable
 //.autoProvidejQuery()
